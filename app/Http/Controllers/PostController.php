@@ -14,27 +14,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        echo "Listagem de artigos!";
-
-        $post = Post::find();
-
-        echo "<h1>{$post->title}</h1>";
-        echo "<h2>{$post->subtitle}</h2>";
-        echo "<p>{$post->description}</p>";
-        echo "<hr>";
-        
-
-      
-        //$posts = Post::where('created_at', '>=', date('2020-m-d H:i:s'))->firstOrFail();
-      
-        //foreach($posts as $post){
-        //    echo "<h1>{$post->title}</h1>";
-        //   echo "<h2>{$post->subtitle}</h2>";
-        //    echo "<p>{$post->description}</p>";
-        //    echo "<hr>";
-        //}
-
-       var_dump($post);        
+        $posts = Post::all();
+        return view('posts.index', ['posts'=>$posts]);
     
     }
 
