@@ -38,18 +38,18 @@ class PostController extends Controller
     public function store(Request $request)
     {
         //Primeiro formato para salvar - object ->prop ->save
-        //$post = new Post;
-        //$post->title = $request->title;
-        //$post->subtitle = $request->subtitle;
-        //$post->description = $request->description;
-        //$post->save();
+        $post = new Post;
+        $post->title = $request->title;
+        $post->subtitle = $request->subtitle;
+        $post->description = $request->description;
+        $post->save();
      
         //Segundo formato para salvar
-        Post::create([
-            'title' => $request->title,
-            'subtitle' => $request->subtitle,
-            'description' => $request->description
-         ]);
+        //Post::create([
+        //    'title' => $request->title,
+        //    'subtitle' => $request->subtitle,
+        //    'description' => $request->description
+        // ]);
 
         //Terceiro formato para salvar
         //$post = Post::firstOrNew([
@@ -66,7 +66,9 @@ class PostController extends Controller
         //    'subtitle' => 'teste23',
         //],[
         //    'description' => 'teste23'
-        //    ]);         
+        //    ]);   
+        
+        return redirect()->route('posts.index');
 
     }
 
@@ -89,7 +91,7 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        return view('posts.edit', ['post' => $post]);
     }
 
     /**
@@ -101,7 +103,14 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //
+        $post = Post::find($post->id);
+        $post->title = $request->title;
+        $post->subtitle = $request->subtitle;
+        $post->description = $request->description;
+        $post->save(); 
+
+        return redirect()->route('posts.index');
+
     }
 
     /**
@@ -112,6 +121,8 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        //Post::find($post->id)->delete();
+        Post::destroy($post->id);
+        return redirect()->route('posts.index');
     }
 }
