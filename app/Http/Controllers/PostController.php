@@ -26,7 +26,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('posts.create');
     }
 
     /**
@@ -37,7 +37,37 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //Primeiro formato para salvar - object ->prop ->save
+        //$post = new Post;
+        //$post->title = $request->title;
+        //$post->subtitle = $request->subtitle;
+        //$post->description = $request->description;
+        //$post->save();
+     
+        //Segundo formato para salvar
+        Post::create([
+            'title' => $request->title,
+            'subtitle' => $request->subtitle,
+            'description' => $request->description
+         ]);
+
+        //Terceiro formato para salvar
+        //$post = Post::firstOrNew([
+        //    'title' => 'teste23',
+        //    'subtitle' => 'teste23',
+        //],[
+        //    'description' => 'teste23'
+        //    ]);
+        //$post->save();
+
+        //Quarto formato para salvar
+        //$post = Post::firstOrCreate([
+        //    'title' => 'teste23',
+        //    'subtitle' => 'teste23',
+        //],[
+        //    'description' => 'teste23'
+        //    ]);         
+
     }
 
     /**
