@@ -7,6 +7,34 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
+    /**Rota de visualização de registro excuido - deleted_at */
+    public function forceDelete($post)
+    {
+        Post::onlyTrashed()->where(['id' => $post])->forceDelete();
+        return redirect()->route('posts.trashed');    
+        
+    }
+
+     /**Rota de visualização de registro excuido - deleted_at */
+     public function restore($post)
+     {
+         $post = Post::onlyTrashed()->where(['id' => $post])->first();
+         if($post->trashed()){
+             $post->restore();
+         }
+
+         return redirect()->route('posts.trashed');
+         
+     }
+
+    /**Rota de visualização de registro excuido - deleted_at */
+    public function trashed()
+    {
+        $posts = Post::onlyTrashed()->get();
+        return view('posts.trashed', ['posts'=> $posts]);
+
+    }
+
     /**
      * Display a listing of the resource.
      *
